@@ -4,18 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,7 +44,6 @@ public class User {
     @JsonManagedReference
     private List<Transaction> transactions;    
 
-
     @PrePersist
     protected void onCreate() {
         created_at = LocalDateTime.now();
@@ -64,5 +52,6 @@ public class User {
     @PreUpdate
     protected void onUpdate() {
         updated_at = LocalDateTime.now();
-    }
+    
+}
 }

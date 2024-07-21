@@ -1,5 +1,6 @@
 package com.installfuturecase.InstallFutureBackendCase.business.concretes;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class UsersManager implements IUsersService{
     private IModelMapperService modelMapperService;
 
     @Override
+    @Transactional
     public List<GetAllUsersResponse> getAllUsers() {
         List<User> users ;
         List<GetAllUsersResponse> response = new ArrayList<>();
@@ -64,10 +66,9 @@ public class UsersManager implements IUsersService{
         }
 
         User user = modelMapperService.forRequest().map(createUserRequest, User.class);
-
+    
         try {
             usersRepository.save(user);
-            System.out.println("Saved User ID: " + user.getId()); 
         } catch (Exception e) {
             throw new RuntimeException("An error occurred while adding user", e);
         }
@@ -77,7 +78,7 @@ public class UsersManager implements IUsersService{
     @Transactional
     public void update(UpdateUserRequest updateUserRequest) {
         User user = this.usersRepository.findById(updateUserRequest.getId())
-                .orElseThrow(() -> new EntityNotFoundException("ProgrammingLanguage not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         this.modelMapperService.forRequest().map(updateUserRequest, user);
 

@@ -37,16 +37,16 @@ public class Transaction {
     private String description;
 
     @Column(name = "transaction_type",length = 50)
-    private String transactiontype;
+    private String transaction_type;
 
     @Column(name="transaction_date", nullable = false)
-    private LocalDate transactionDate;
+    private LocalDate transaction_date;
 
     @Column(name = "created_at", updatable = false)
-    private LocalDate createdAt;
+    private LocalDate created_at;
 
     @Column(name = "updated_at")
-    private LocalDate updatedAt;
+    private LocalDate updated_at;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

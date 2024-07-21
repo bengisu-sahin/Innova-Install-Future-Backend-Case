@@ -1,7 +1,6 @@
 package com.installfuturecase.InstallFutureBackendCase.dtos.responses;
-
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,11 +13,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class GetUserByIdResponse {
+public class GetTransactionByIdResponse {
     private int id;
+    private BigDecimal amount;
+    private String description;
+    private String transaction_type;
+    private LocalDate transaction_date;
+    private LocalDate created_at;
+    private LocalDate updated_at;
     private String name;
-    private String email;
-    private String role;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
 }

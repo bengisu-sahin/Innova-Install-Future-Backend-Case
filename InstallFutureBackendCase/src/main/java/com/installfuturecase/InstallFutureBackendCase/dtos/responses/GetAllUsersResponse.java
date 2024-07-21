@@ -1,6 +1,7 @@
 package com.installfuturecase.InstallFutureBackendCase.dtos.responses;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,6 @@ public class GetAllUsersResponse {
     private String name;
     private String email;
     private String role;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
+    private LocalDateTime created_at;
+    private LocalDateTime updated_at;
 }
