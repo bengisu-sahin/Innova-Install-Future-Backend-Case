@@ -1,8 +1,9 @@
 package com.installfuturecase.InstallFutureBackendCase.business.concretes;
 
+
 import java.util.ArrayList;
 import java.util.List;
-
+import java.time.LocalDate;
 import org.springframework.stereotype.Service;
 
 import com.installfuturecase.InstallFutureBackendCase.business.abstracts.ITransactionsService;
@@ -66,7 +67,10 @@ public class TransactionsManager implements ITransactionsService{
         Transaction transaction = this.modelMapperService.forRequest().map(request, Transaction.class);
         User user = usersRepository.findById(request.getUser_id())
                 .orElseThrow(() -> new RuntimeException("User not found"));
+        
         transaction.setUser(user);
+        LocalDate today = LocalDate.now();
+        transaction.setCreated_at(today);
         transactionsRepository.save(transaction);
     }
 

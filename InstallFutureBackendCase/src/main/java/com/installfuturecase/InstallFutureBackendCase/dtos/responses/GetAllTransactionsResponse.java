@@ -19,10 +19,6 @@ public class GetAllTransactionsResponse {
 
     private LocalDate transaction_date;
 
-    private LocalDate created_at;
-
-    private LocalDate updated_at;
-
     private String email;
     private String name;
 }

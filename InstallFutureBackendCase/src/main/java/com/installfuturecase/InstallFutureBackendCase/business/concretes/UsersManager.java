@@ -1,8 +1,8 @@
 package com.installfuturecase.InstallFutureBackendCase.business.concretes;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -14,6 +14,7 @@ import com.installfuturecase.InstallFutureBackendCase.dtos.requests.DeleteUserRe
 import com.installfuturecase.InstallFutureBackendCase.dtos.requests.UpdateUserRequest;
 import com.installfuturecase.InstallFutureBackendCase.dtos.responses.GetAllUsersResponse;
 import com.installfuturecase.InstallFutureBackendCase.dtos.responses.GetUserByIdResponse;
+import com.installfuturecase.InstallFutureBackendCase.entities.Transaction;
 import com.installfuturecase.InstallFutureBackendCase.entities.User;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -39,12 +40,19 @@ public class UsersManager implements IUsersService{
             throw new RuntimeException("An error occurred while fetching users", e);
         }
         
+       
         response = users.stream()
-            .map(user -> modelMapperService.forResponse().map(user, GetAllUsersResponse.class))
-            .toList();
-        
+        .map(user -> {
+            GetAllUsersResponse userResponse = modelMapperService.forResponse().map(user, GetAllUsersResponse.class);
+            List<Transaction> transactions = user.getTransactions().stream()
+                .map(transaction -> modelMapperService.forResponse().map(transaction, Transaction.class))
+                .collect(Collectors.toList());
+            userResponse.setTransactions(transactions);
+            return userResponse;
+        })
+        .collect(Collectors.toList());
+
         return response;
-    
     }
 
     @Override
